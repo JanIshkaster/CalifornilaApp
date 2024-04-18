@@ -20,7 +20,7 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 
-
+//AUTHENTICATE LOGIN - SHOPIFY
 Route::get('/', function () {
     return view('welcome');
 })->middleware(['verify.shopify'])->name('home');
