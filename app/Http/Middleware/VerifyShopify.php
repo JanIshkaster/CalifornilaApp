@@ -36,18 +36,21 @@ class VerifyShopify
      * @param  string|null  $hmac
      * @return bool
      */
-    private function isValidShopifyRequest(?string $shopifyShop, ?string $hmac): bool
+    public function isValidShopifyRequest(Request $request, ?string $hmac): bool
     {
         // Get the shared secret from your Shopify Partner Dashboard
         $sharedSecret = env('SHOPIFY_API_SECRET');
-
+    
+        // Get the request body
+        $data = $request->getContent();
+    
         // Create a hash using the shared secret and the request data
-        $data = $shopifyShop . $hmac;
-        $calculatedHmac = hash_hmac('sha256', $data, $sharedSecret);
-
+        $calculatedHmac = base64_encode(hash_hmac('sha256', $data, $sharedSecret, true));
+    
         // Compare the calculated HMAC with the one in the request
         return hash_equals($hmac, $calculatedHmac);
     }
+    
 }
 
 

@@ -1,22 +1,17 @@
-@extends('shopify-app::layouts.default')
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __('Customer Page') }}
+        </h2>
+    </x-slot>
 
-@section('content')
-    <h1>Customers Page</h1>
-    <!-- Add your page content here -->
-@endsection
-
-@section('scripts')
-    @parent
-
-    <script type="text/javascript">
-        var AppBridge = window['app-bridge'];
-        var actions = AppBridge.actions;
-        var TitleBar = actions.TitleBar;
-        var Button = actions.Button;
-        var Redirect = actions.Redirect;
-        var titleBarOptions = {
-            title: 'Customers',
-        };
-        var myTitleBar = TitleBar.create(app, titleBarOptions);
-    </script>
-@endsection
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900 dark:text-gray-100">
+                    {{ __('Customer Page!') }}
+                </div>
+            </div>
+        </div>
+    </div>
+</x-app-layout>

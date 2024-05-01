@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ShopifyAppController;
+use App\Http\Controllers\HomePageController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,20 +14,28 @@ use Illuminate\Support\Facades\Auth;
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
-// Route::middleware('auth')->group(function () {
+ 
+
+// Route::middleware(['auth', 'verified'])->group(function () {
+//     Route::get('/', [HomePageController::class, 'dashboard'])->name('dashboard');
+//     Route::get('/customers', [HomePageController::class, 'customers'])->name('customers');
 //     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 //     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
 
-// require __DIR__.'/auth.php';
+// require __DIR__.'/auth.php'; 
+
+//SHOPIFY INSTALL
+Route::get('/install', [ShopifyAppController::class, 'install']);
 
 
 //AUTHENTICATE LOGIN - SHOPIFY
 Route::middleware('verify.shopify')->group(function () {
-    Route::get('/', [ShopifyAppController::class, 'testSession'])->name('home');
-    Route::get('/customers', [ShopifyAppController::class, 'customers'])->name('customers');
-    Route::get('/orders', [ShopifyAppController::class, 'orders'])->name('orders');
+    Route::get('/', [ShopifyAppController::class, 'home'])->name('home');  
+    Route::get('/customers', [ShopifyAppController::class, 'customers'])->name('vendors.shopify-app.customers');
+    Route::get('/orders', [ShopifyAppController::class, 'orders'])->name('vendors.shopify-app.orders');
+    Route::get('/calculator', [ShopifyAppController::class, 'calculator'])->name('vendors.shopify-app.calculator');
 });
 
 // Route::get('/', function () {

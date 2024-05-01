@@ -15,9 +15,18 @@
             @endforeach
 
         </ul> --}}
-        <h1>Session Value: {{ $value }}</h1>
-        <h1>{{ Auth::user()->name }}</h1>
-        <h1>Shop Domain: {{ $shopDomain }}</h1>
+        {{-- <div class="test flex flex-col">
+            <h1 class="py-1"> Session Value: {{ $value }}</h1>
+            <h1 class="py-1">{{ Auth::user()->name }}</h1>
+            <h1 class="py-1">shopDomain: {{ $shopDomain }}</h1>
+
+            @foreach ($products as $product)
+                <h1 class="py-1">Products Title: {{ $product->title }}</h1>
+            @endforeach
+
+
+        </div> --}}
+
 
     </div>
 @endsection
