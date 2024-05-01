@@ -1,57 +1,66 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ShopifyAppController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
-Route::get('/', function () {
-    return view('index');
-});
+// Route::get('/', function () {
+//     return view('index');
+// });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+// Route::middleware('auth')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// });
 
-require __DIR__.'/auth.php';
+// require __DIR__.'/auth.php';
 
 
 //AUTHENTICATE LOGIN - SHOPIFY
-Route::get('/', function () {
-    return view('index');
-})->middleware(['verify.shopify'])->name('home');
+Route::middleware('verify.shopify')->group(function () {
+    Route::get('/', [ShopifyAppController::class, 'testSession'])->name('home');
+    Route::get('/customers', [ShopifyAppController::class, 'customers'])->name('customers');
+    Route::get('/orders', [ShopifyAppController::class, 'orders'])->name('orders');
+});
 
-//CUSTOMERS PAGE
-Route::get('/customers', function(){
-    return view('customers');
-})->middleware(['auth', 'verified'])->name('customers');
+// Route::get('/', function () {
+//     return view('index');
+// })->middleware(['verify.shopify'])->name('home');
+ 
 
-//ORDERS PAGE
-Route::get('/orders', function(){
-    return view('orders');
-})->middleware(['auth', 'verified'])->name('orders');
+//TEST HOME
+ 
+// Route::get('/', [ShopifyAppController::class, 'index'])->name('index'); 
+ 
 
-//ASSIGN TICKET PAGE
-Route::get('/assign-ticket', function(){
-    return view('assign-ticket');
-})->middleware(['auth', 'verified'])->name('assign-ticket');
+// //CUSTOMERS PAGE
+// Route::get('/customers', function () {
+//     return view('customers');
+// })->middleware(['verify.shopify'])->name('customers');
 
-//UN-ASSIGN TICKET PAGE
-Route::get('/un-assign-ticket', function(){
-    return view('un-assign-ticket');
-})->middleware(['auth', 'verified'])->name('un-assign-ticket');
-
-//SOLVED TICKET PAGE
-Route::get('/solved-ticket', function(){
-    return view('solved-ticket');
-})->middleware(['auth', 'verified'])->name('solved-ticket');
+// //ORDERS PAGE
+// Route::get('/orders', function () {
+//     return view('orders');
+// })->middleware(['verify.shopify'])->name('orders');
 
 
-//CALCULATOR PAGE
-Route::get('/calculator', function(){
-    return view('calculator');
-})->middleware(['auth', 'verified'])->name('calculator');
+
+
+
+// Route::middleware(['verify.shopify'])->group(function () {
+//     Route::view('/orders', 'orders')->name('orders'); //ORDERS PAGE
+//     Route::view('/customers', 'customers')->name('customers'); //CUSTOMERS PAGE
+//     Route::view('/assign-ticket', 'assign-ticket')->name('assign-ticket'); //ASSIGN TICKET PAGE
+//     Route::view('/un-assign-ticket', 'un-assign-ticket')->name('un-assign-ticket'); //UN-ASSIGN TICKET PAGE
+//     Route::view('/solved-ticket', 'solved-ticket')->name('solved-ticket'); //SOLVED TICKET PAGE
+//     Route::view('/calculator', 'calculator')->name('calculator'); //CALCULATOR PAGE
+// });
+ 
+
+ 

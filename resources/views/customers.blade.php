@@ -1,22 +1,22 @@
 @extends('shopify-app::layouts.default')
 
 @section('content')
-    <div class="container flex flex-row">
-
-        {{-- SIDEBAR --}}
-        <x-sidebar-menu />
-
-        Customers
-
-    </div>
+    <h1>Customers Page</h1>
+    <!-- Add your page content here -->
 @endsection
 
 @section('scripts')
     @parent
 
-    <script>
-        actions.TitleBar.create(app, {
-            title: 'Welcome'
-        });
+    <script type="text/javascript">
+        var AppBridge = window['app-bridge'];
+        var actions = AppBridge.actions;
+        var TitleBar = actions.TitleBar;
+        var Button = actions.Button;
+        var Redirect = actions.Redirect;
+        var titleBarOptions = {
+            title: 'Customers',
+        };
+        var myTitleBar = TitleBar.create(app, titleBarOptions);
     </script>
 @endsection
